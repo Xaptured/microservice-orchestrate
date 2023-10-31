@@ -1,7 +1,10 @@
 package com.esportarena.microservices.orchestrateapi.models;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Component
 public class EmailDetails {
 
     private String recipient;

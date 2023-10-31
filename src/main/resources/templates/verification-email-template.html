@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet">
+
+    <title>Verify Email</title>
+</head>
+<body class="container" style="color: black;">
+<h1 style=" display:flex; justify-content: center;">Welcome to ESportsArena</h1>
+<p style=" display:flex; justify-content: center;">Thank you for joining our platform. We assure you of an upcoming exciting journey with our platform. Please reach out to this email if you have any concern with the platform.
+We are still in the initial phases of the development. Your suggestions will bring a good change to our platform. At the end of the day, it is your
+place to do different stuff with gaming.</p>
+<p style=" display:flex; justify-content: center;">Just click the below button to verify your email. Post verification you will be ready to access your account.</p>
+<div style=" display:flex; justify-content: center;">
+    <a th:href="'http://localhost:8088/verify?id='+${id}+'&code='+${code}" style="background-color: #4CAF50;width: 10%; color: white; padding: 10px 20px; text-decoration: none; display:flex; justify-content: center;">Verify Email</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>
