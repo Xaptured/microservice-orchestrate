@@ -1,6 +1,7 @@
 package com.esportarena.microservices.orchestrateapi.controllers;
 
 import com.esportarena.microservices.orchestrateapi.exceptions.EmailException;
+import com.esportarena.microservices.orchestrateapi.models.EmailDetails;
 import com.esportarena.microservices.orchestrateapi.models.EmailRequest;
 import com.esportarena.microservices.orchestrateapi.models.EmailResponse;
 import com.esportarena.microservices.orchestrateapi.services.EmailService;
@@ -33,6 +34,57 @@ public class EmailController {
         EmailResponse response = new EmailResponse();
         try{
             service.sendMailToClient(request, StringConstants.VERIFICATION_EMAIL_TEMPLATE, StringConstants.VERIFY_YOUR_EMAIL);
+            response.setMessage(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (EmailException exception) {
+            response.setMessage(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Operation(
+            summary = "Send acknowledgement email to client",
+            description = "Send acknowledgement email to client"
+    )
+    @PostMapping("/send-acknowledgement-email")
+    public ResponseEntity<EmailResponse> sendAcknowledgementEmailToClient(@RequestBody EmailDetails details){
+        EmailResponse response = new EmailResponse();
+        try {
+            service.sendAcknowledgementEmailToClient(details, true);
+            response.setMessage(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (EmailException exception) {
+            response.setMessage(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Operation(
+            summary = "Send robo email to client",
+            description = "Send robo email to client"
+    )
+    @PostMapping("/send-robo-email")
+    public ResponseEntity<EmailResponse> sendRoboEmailToMe(@RequestBody EmailDetails details){
+        EmailResponse response = new EmailResponse();
+        try {
+            service.sendAcknowledgementEmailToClient(details, false);
+            response.setMessage(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (EmailException exception) {
+            response.setMessage(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Operation(
+            summary = "Send response email to client",
+            description = "Send response email to client"
+    )
+    @PostMapping("/send-response-email")
+    public ResponseEntity<EmailResponse> sendResponseEmailToClient(@RequestBody EmailDetails details){
+        EmailResponse response = new EmailResponse();
+        try {
+            service.sendAcknowledgementEmailToClient(details, false);
             response.setMessage(StringConstants.MAIL_SENT_SUCCESSFULLY);
         } catch (EmailException exception) {
             response.setMessage(exception.getMessage());
