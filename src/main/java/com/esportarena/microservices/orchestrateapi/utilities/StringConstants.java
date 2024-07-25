@@ -27,6 +27,10 @@ public class StringConstants {
     public static final String SENDER = "SENDER";
     public static final String ACKNOWLEDGE_BODY = "Hey! \n\nHope you are doing well. Thanks for reaching out to me. \nPlease wait maximum of one day to get my response. Have a nice day. \n\nThanks \nJack  \n\nThis is an auto triggered email. Please don't reply to this." ;
     public static final String ACKNOWLEDGE_SUBJECT = "ACKNOWLEDGEMENT";
+    public static final String ONBOARDING_SUBJECT = "Onboarding for Xapture Team";
+    public static final String ONBOARDING_COMPLETE_SUBJECT = "Onboarding Complete for Xapture Team";
+    public static final String ONBOARDING_BODY = "Hey! \n\nHope you are doing well. Thanks for showing interest in my team. \nPlease wait maximum of one day to get my response. Have a nice day. \n\nThanks \nJack  \n\nThis is an auto triggered email. Please don't reply to this." ;
+    public static final String ONBOARDING_COMPLETE_BODY = "Hey! \n\nHope you are doing well. We are happy to share that you are successfully onboarded for our team. \nPlease wait for an another email with the complete details. Have a nice day. \n\nThanks \nJack  \n\nThis is an auto triggered email. Please don't reply to this." ;
 
     private StringConstants(){}
 }
