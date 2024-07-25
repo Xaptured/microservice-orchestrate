@@ -72,6 +72,30 @@ public class EmailService {
         }
     }
 
+    public void sendOnboardingEmailToClient(EmailDetails details) throws EmailException {
+        try {
+            SimpleMailMessage mailMessage = getOnboardingMailMessage(details);
+
+            javaMailSender.send(mailMessage);
+            LOGGER.info(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (Exception exception) {
+            LOGGER.info(StringConstants.ERROR_OCCURRED_SENDING_EMAIL);
+            throw new EmailException(StringConstants.ERROR_OCCURRED_SENDING_EMAIL, exception);
+        }
+    }
+
+    public void sendOnboardingCompleteEmailToClient(EmailDetails details) throws EmailException {
+        try {
+            SimpleMailMessage mailMessage = getOnboardingCompleteMailMessage(details);
+
+            javaMailSender.send(mailMessage);
+            LOGGER.info(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (Exception exception) {
+            LOGGER.info(StringConstants.ERROR_OCCURRED_SENDING_EMAIL);
+            throw new EmailException(StringConstants.ERROR_OCCURRED_SENDING_EMAIL, exception);
+        }
+    }
+
     private SimpleMailMessage getMailMessage(EmailDetails details, boolean isAcknowledgement) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
@@ -84,6 +108,26 @@ public class EmailService {
             mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
         }
+        return mailMessage;
+    }
+
+    private SimpleMailMessage getOnboardingMailMessage(EmailDetails details) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+        mailMessage.setFrom(SENDER_EMAIL);
+        mailMessage.setTo(details.getRecipient());
+        mailMessage.setSubject(StringConstants.ONBOARDING_SUBJECT);
+        mailMessage.setText(StringConstants.ONBOARDING_BODY);
+        return mailMessage;
+    }
+
+    private SimpleMailMessage getOnboardingCompleteMailMessage(EmailDetails details) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+        mailMessage.setFrom(SENDER_EMAIL);
+        mailMessage.setTo(details.getRecipient());
+        mailMessage.setSubject(StringConstants.ONBOARDING_COMPLETE_SUBJECT);
+        mailMessage.setText(StringConstants.ONBOARDING_COMPLETE_BODY);
         return mailMessage;
     }
 }

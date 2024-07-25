@@ -60,6 +60,40 @@ public class EmailController {
     }
 
     @Operation(
+            summary = "Send onboarding email to client",
+            description = "Send onboarding email to client"
+    )
+    @PostMapping("/send-onboarding-email")
+    public ResponseEntity<EmailResponse> sendOnboardingEmailToClient(@RequestBody EmailDetails details){
+        EmailResponse response = new EmailResponse();
+        try {
+            service.sendOnboardingEmailToClient(details);
+            response.setMessage(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (EmailException exception) {
+            response.setMessage(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Operation(
+            summary = "Send onboarding complete email to client",
+            description = "Send onboarding complete email to client"
+    )
+    @PostMapping("/send-onboarding-complete-email")
+    public ResponseEntity<EmailResponse> sendOnboardingCompleteEmailToClient(@RequestBody EmailDetails details){
+        EmailResponse response = new EmailResponse();
+        try {
+            service.sendOnboardingCompleteEmailToClient(details);
+            response.setMessage(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (EmailException exception) {
+            response.setMessage(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Operation(
             summary = "Send robo email to client",
             description = "Send robo email to client"
     )
