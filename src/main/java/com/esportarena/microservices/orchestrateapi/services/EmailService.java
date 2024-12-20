@@ -2,6 +2,7 @@ package com.esportarena.microservices.orchestrateapi.services;
 
 import com.esportarena.microservices.orchestrateapi.clients.DB_client;
 import com.esportarena.microservices.orchestrateapi.exceptions.EmailException;
+import com.esportarena.microservices.orchestrateapi.exceptions.LANEmailException;
 import com.esportarena.microservices.orchestrateapi.models.ClientCredential;
 import com.esportarena.microservices.orchestrateapi.models.EmailDetails;
 import com.esportarena.microservices.orchestrateapi.models.EmailRequest;
@@ -96,6 +97,18 @@ public class EmailService {
         }
     }
 
+    public void sendBookingTicketEmailToClient(EmailDetails details) {
+        try {
+            SimpleMailMessage mailMessage = getBookingTicketMailMessage(details);
+
+            javaMailSender.send(mailMessage);
+            LOGGER.info(StringConstants.MAIL_SENT_SUCCESSFULLY);
+        } catch (Exception exception) {
+            LOGGER.info(StringConstants.ERROR_OCCURRED_SENDING_EMAIL);
+            throw new LANEmailException(StringConstants.ERROR_OCCURRED_SENDING_EMAIL, exception);
+        }
+    }
+
     private SimpleMailMessage getMailMessage(EmailDetails details, boolean isAcknowledgement) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
@@ -128,6 +141,16 @@ public class EmailService {
         mailMessage.setTo(details.getRecipient());
         mailMessage.setSubject(StringConstants.ONBOARDING_COMPLETE_SUBJECT);
         mailMessage.setText(StringConstants.ONBOARDING_COMPLETE_BODY);
+        return mailMessage;
+    }
+
+    private SimpleMailMessage getBookingTicketMailMessage(EmailDetails details) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+        mailMessage.setFrom(SENDER_EMAIL);
+        mailMessage.setTo(details.getRecipient());
+        mailMessage.setSubject(details.getSubject());
+        mailMessage.setText(details.getMsgBody());
         return mailMessage;
     }
 }
